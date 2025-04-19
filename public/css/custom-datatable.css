@@ -1,0 +1,4 @@
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  border-bottom: 2px solid;
+}

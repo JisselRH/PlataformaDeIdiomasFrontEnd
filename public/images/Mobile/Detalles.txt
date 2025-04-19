@@ -1,0 +1,3 @@
+Fondo: f5f8fa
+Gris: f2f2f2
+Morado: 8557a7

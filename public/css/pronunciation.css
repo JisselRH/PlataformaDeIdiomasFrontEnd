@@ -1,0 +1,19 @@
+.flex-end-center {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nice-icon {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.timer-contain {
+    margin-bottom: 0.5rem;
+
+}
+
+.lds-ring.responsive-ring {
+    height: 100%;
+}

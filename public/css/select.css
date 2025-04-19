@@ -1,0 +1,935 @@
+/* General */
+
+
+.btn-loading .spinner {
+    border: 0.5vw solid rgb(0, 0, 0);
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    border-left-color: #FFC300;
+    animation: spin 1s ease infinite;
+    display: block;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+  
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    display: none;
+}
+
+.btn-loading .btn-text {
+    display: none;
+}
+
+button.btn.btn-primary.btn-loading {
+    /* opacity: 0.5; */
+    /* background-color: #ffe591; */
+    pointer-events: none;
+
+}
+
+/* .wex {
+    height: 200%;
+} */
+
+.color-white {
+    color: white;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.hide {
+    display: none !important;
+}
+
+.buttons-container {
+    /* margin: auto; */
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+}
+
+.btn.btn-pad {
+    padding: 0.6rem 1rem !important;
+}
+
+.out-tittle {
+    width: 100%;
+    padding: 0 20%;
+
+}
+
+.tittle {
+    text-align: center;
+    font-size: 2vw;
+}
+
+.excercises-container {
+    background-color: white;
+    width: 90%;
+    height: 70%;
+}
+
+.white-text {
+    width: 76%;
+    color: white;
+    text-align: center;
+    font-size: 0.85vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.white-tittle {
+    color: white;
+    font-weight: 600;
+    line-height: 100%;
+    font-size: 14px;
+}
+
+.context-container {
+    height: 50%;
+    width: 70%;
+    margin: auto;
+
+}
+
+.word-panel {
+    width: 80%;
+    /* box-sizing: border-box; */
+    width: 80%;
+    margin: auto;
+}
+
+/*.words-border {
+    border: 1.5px solid #F2F2F2;
+    border-radius: 0.475rem;
+    height: 70%;
+    width: 100%;
+}*/
+
+.word-container {
+    overflow-y: auto;
+    padding: 1%;
+    height: 93%;
+    width: 95%;
+    margin: auto;
+    margin-top: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.word-container::-webkit-scrollbar-track {
+    background: #d1d1d1;
+    border-radius: 3px;
+}
+
+.word-container::-webkit-scrollbar-thumb {
+    background-color: #FFC300;
+    border-radius: 3px;
+}
+
+div.word-container:hover::-webkit-scrollbar-thumb {
+    background-color: #FFC300;
+    border-radius: 3px;
+}
+
+/*.one-word-container {
+    margin: auto;
+    margin-bottom: 10%;
+    background-color: #F2F2F2;
+    padding: 3px;
+    border-radius: 0.475rem;
+    flex: 0 0 48%;
+    text-align: center;
+}*/
+
+.one-word-container {
+    margin: auto;
+    margin-bottom: 8%;
+    background-color: #F2F2F2;
+    padding: 3px;
+    border-radius: 0.475rem;
+    flex: 0 0 48%;
+    text-align: center;
+}
+
+.mic-container {
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.character-container {
+    overflow-y: auto;
+    width: 80%;
+    max-height: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.character-container::-webkit-scrollbar-thumb {
+    background-color: #FFC300;
+    border-radius: 3px;
+}
+
+.character-container:hover::-webkit-scrollbar-thumb {
+    background-color: #FFC300;
+    border-radius: 3px;
+}
+
+.character-holder {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* CONTEXT CREATION */
+
+.image-holder {
+    margin: 4%;
+    width: 92%;
+    aspect-ratio: 1/1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 0.2rem;
+    border: #F2F2F2 solid 5px;
+}
+
+.context-info-holder {
+    margin: 4%;
+    padding: 5%;
+    width: 92%;
+    background-color: #F2F2F2;
+    border-radius: 0.100rem;
+}
+
+.exercise-info {
+    background-color: #FFF;
+    padding: 4%;
+    border-radius: 0.475rem;
+}
+
+/*   ###    MENU   ###   */
+
+.options-section {
+    justify-content: space-between;
+}
+
+.menu-container {
+    width: 70%;
+    aspect-ratio: 1.8/1;
+    margin: auto;
+}
+
+.exercise-description {
+    font-size: 1vw;
+}
+
+/*   ###   SELECT   ###   */
+.select-options {
+    padding: 5%;
+}
+
+.btn-collapse[aria-expanded="false"] {
+    background-color: white;
+}
+.btn-collapse[aria-expanded="true"] {
+    background-color: black;
+    color: white;
+}
+
+.collapse-icon {
+    height: 1.25vw;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: #E6E6E6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3%;
+}
+
+.collapse-dot {
+    height: 0.7vw;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: #E6E6E6;
+    margin: auto;
+
+}
+
+.btn-collapse[aria-expanded="true"] .collapse-icon .collapse-dot {
+    background-color: #FFC300;
+}
+
+.btn.btn-collapse:hover {
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+}
+
+/* .btn */
+
+
+.collapse-icon {
+
+}
+
+
+
+
+
+/*   ###    MENU   ###   */
+
+.exercise-options {
+    padding: 10%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.exercise-option {
+    border: 2px solid #e7e7e7;
+    height: 30%;
+    border-radius: 0.200rem;
+    padding: 3% 7%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-holder {
+    height: 80%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-play {
+    background-image: url("../images/Mobile/menuporhacer.png");
+    padding: 0;
+    aspect-ratio: 1/1;
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    width: 80%;
+    border: none;
+    background-color: transparent;
+    margin: auto;
+    cursor: pointer;
+}
+
+.btn-play-disabled {
+    background-image: url("../images/Mobile/menubloqueado.png");
+    padding: 0;
+    aspect-ratio: 1/1;
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    width: 80%;
+    border: none;
+    background-color: transparent;
+    margin: auto;
+    /*cursor: pointer;*/
+    pointer-events: none;
+}
+
+.btn-play-ready {
+    background-image: url("../images/Mobile/menuhecho.png");
+    padding: 0;
+    aspect-ratio: 1/1;
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    width: 80%;
+    border: none;
+    background-color: transparent;
+    margin: auto;
+    /*cursor: pointer;*/
+    pointer-events: none;
+}
+
+.icon {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 1.25vw;
+    vertical-align: baseline;
+    margin-right: 2%;
+}
+
+
+/*##     EXCERCISE/WORDS    ##*/
+
+.exercise-container-1 {
+    padding: 2%;
+    width: 50%;
+    aspect-ratio: 1.45/1;
+    overflow: hidden;
+}
+
+.column-tittle {
+    background-color: #17A79D;
+    /* margin-right: 0.3%; */
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.right-white-border {
+    border-right: 2px solid #F2F2F2;
+
+}
+
+.exercise-word-panel {
+    padding: 5% 5% 3% 5%;
+    align-items: center;
+    justify-content: space-between;
+    
+
+}
+
+.exercise-word-container {
+    width: 100%;
+    height: 85%;
+    border: 2px solid #F2F2F2;
+    border-radius: 0.200rem;
+    overflow: auto;
+}
+
+.exercise-word {
+    /* padding: 3% 4%; */
+    width: 100%;
+    border-bottom: 2px solid #F2F2F2;
+    align-items: center;
+    color: #B3B3B3;
+    font-weight: 500;
+}
+
+.word-box {
+    padding: 3% 4%;
+    border-right: 2px solid #F2F2F2;
+
+}
+
+.status-dot {
+    border-radius: 50%;
+    background-color: #E6E6E6;
+    height: 1.5vw;
+    aspect-ratio: 1/1;
+    margin-right: 3%;
+
+}
+
+.active-word {
+    color: #000;
+    background-color: #FFFAEB;
+}
+
+.done-word div {
+    color: #000;
+}
+.done-word .status-dot {
+    background-color: #88D392;
+}
+
+.btn-talk {
+    background-image: url("../images/Mobile/micro.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    height: 80px;
+    width: 80px;
+    aspect-ratio: 1/1;
+    pointer-events: all;
+    background-color: white;
+    /* btn float-right*/
+}
+
+.btn-talk-disabled {
+    background-image: url("../images/Mobile/microgris.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    height: 80px;
+    width: 80px;
+    aspect-ratio: 1/1;
+    /* Make it uncluckable */
+    pointer-events: none;
+}
+
+.btn-talk-active {
+    background-image: url("../images/Mobile/microactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    height: 80px;
+    width: 80px;
+    aspect-ratio: 1/1;
+    /* Make it uncluckable */
+}
+
+.btn-talk-finished {
+    background-image: url("../images/Mobile/microfinalizado.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    height: 80px;
+    width: 80px;
+    aspect-ratio: 1/1;
+    /* Make it uncluckable */
+    pointer-events: none;
+}
+
+.btn-talk-dialog {
+    background-image: url("../images/Mobile/Hablar.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    aspect-ratio: 2.66/1;
+    background-color: transparent;
+    margin-right: 2%;
+}
+
+.btn-talk-dialog.talking {
+    background-image: url("../images/Mobile/Parar.png");
+
+}
+
+.btn-talk-dialog.disabled {
+    background-image: url("../images/Mobile/HablarInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    aspect-ratio: 2.66/1;
+    background-color: transparent;
+    margin-right: 2%;
+    /* Make it uncluckable */
+    pointer-events: none;
+}
+
+
+.word-feedback {
+    text-align: center;
+}
+
+/*.btn-talk.talking {
+    background-image: url("/images/exercise/Parar.png");
+
+}
+
+.btn-talk.disabled {
+    background-image: url("/images/exercise/HablarApagado.png");
+    
+    pointer-events: none;
+}*/
+
+.btn-send.disabled {
+    background-image: url("/images/Mobile/EnviarInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    aspect-ratio: 2.71/1;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.btn-send {
+    background-image: url("/images/Mobile/Enviar.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    aspect-ratio: 2.71/1;
+    background-color: transparent;
+}
+
+
+/*##     EXCERCISE/DIALOG    ##*/
+
+.dialog-container {
+    flex: 1 1 1;
+    padding: 2% 0%;
+    width: 68%;
+    aspect-ratio: 1.85/1;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 0.475rem;
+}
+
+.dialog-container__tittle {
+
+}
+
+.dialog-container__content {
+   /*height: 70%;
+    width: 77%;
+     aspect-ratio: 1.88/1; */
+    
+
+}
+
+.dialog-container__buttons {
+}
+
+.dialog-content-left {
+    border-radius: 0.475rem;
+    position: relative;
+}
+
+.dc-left__head {
+    background-color: #17A79D;
+    position: relative;
+    border-top-right-radius: 0.475rem;
+    border-top-left-radius: 0.475rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 3%;
+
+}
+
+
+.dc-right__body {
+    position: relative;
+    background-color: #F2F2F2;
+    border-bottom-right-radius: 0.475rem;
+    border-bottom-left-radius: 0.475rem;
+    padding: 5% 4%;
+
+}
+
+.scroll-dialog-container {
+    padding-right: 3%;
+    overflow-y: auto;
+
+}
+
+.chat-chunk {
+    margin-bottom: 6%;
+
+}
+
+.chat-chunk__img img {
+    border: 2.5px solid #FFC300;
+    aspect-ratio: 1/1;
+    border-radius: 1rem;
+    background-image: url("/images/exercise/UsuarioPersonaje.png");
+    background-size: 100% 100%;
+
+}
+
+.content--character {
+    background-image: url("/images/exercise/UsuarioDoctor.png");
+    background-size: 100% 100%;
+}
+
+.situation__scroller {
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 3%;
+}
+
+.situation__image {
+    width: 60%;
+    aspect-ratio: 1/1;
+    border: #FFC300 solid 2.5px;
+}
+
+.situation__text {
+
+}
+
+
+.content--words {
+    background-size: 100% 100%;
+    padding: 6%;
+}
+
+.words__scroller {
+    /* display: grid; */
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.words__scroller__word {
+    padding: 1%;
+    /* border: #FFC300 solid 1px; */
+    border-radius: 0.475rem;
+    width: 31%;
+    text-align: center;
+    background-color: #f2f2f2;
+    margin: 1%;
+}
+
+.chat-chunk__bubble {
+    border-radius: 0.475rem;
+    background-color: #FFFFFF;
+    padding: 3% 4%;
+
+}
+
+.bubble__name {
+    line-height: 100%
+
+}
+.bubble__text {
+
+}
+
+
+.dialog-content-right {
+    justify-content: space-between;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-content-right__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog-content-right__content {
+    border-radius: 0.475rem;
+    border: solid 1px #E6E6E6;
+    
+}
+
+button.dialog-control-btn {
+    background-color: #E6E6E6;
+    padding: 1% 4%;
+    border-radius: 0.200rem;
+    border: none;
+
+}
+
+button.dialog-control-btn.active {
+    background-color: #FFC300;
+}
+
+
+
+.btn-go {
+    background-image: url("../images/Mobile/BtnContinuar.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+    pointer-events: all;
+}
+
+.btn-go.inactive {
+    background-image: url("../images/Mobile/BtnContinuarInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.btn-prev {
+    background-image: url("../images/Mobile/BtnVolver.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+    pointer-events: all;
+}
+
+.btn-prev.inactive {
+    background-image: url("../images/Mobile/BtnVolverInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.container-general {
+    background-color: #f5f8fa;
+}
+
+.character-tab.active {
+    background-image: url("../images/Mobile/PersonajeActivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: auto;
+    width: auto;*/
+    aspect-ratio: 3.18/1;
+    background-color: transparent;
+}
+
+.character-tab {
+    background-image: url("../images/Mobile/PersonajeInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;
+    aspect-ratio: 157/63;*/
+    aspect-ratio: 3.21/1;
+    background-color: transparent;
+}
+
+.circumstance-tab.active {
+    background-image: url("../images/Mobile/SituacionActivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    aspect-ratio: 3.18/1;
+    background-color: transparent;
+}
+
+.circumstance-tab {
+    background-image: url("../images/Mobile/SituacionInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    aspect-ratio: 3.21/1;
+    background-color: transparent;
+}
+
+
+/*.my-custom-scrollbar {
+    position: relative;
+    
+    overflow: scroll;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}*/
+
+.titulos{
+    border-color: #F2F2F2 !important;
+    background-color:#8557a7; 
+    font-size :4vw;
+    
+}
+
+.micro-head {
+    background-image: url("../images/Mobile/microtable.png");
+    background-size: 30% 70%;
+    background-repeat: no-repeat;
+    background-color: #8557a7;
+    background-position: center;
+    padding: 0;
+    
+    /*height: 80px;
+    width: 80px;*/
+    aspect-ratio: 1/1;
+    /* Make it uncluckable */
+}
+
+.btn-go-tables {
+    background-image: url("../images/Mobile/BtnContinuar.png");
+    background-size: 90% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+}
+
+.btn-prev-tables {
+    background-image: url("../images/Mobile/BtnVolver.png");
+    background-size: 90% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+}
+
+.btn-go-tables.inactive {
+    background-image: url("../images/Mobile/BtnContinuarInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+}
+
+
+.btn-prev-tables.inactive {
+    background-image: url("../images/Mobile/BtnVolverInactivo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+}
+
+.btn-retry {
+    background-image: url("../images/Mobile/BtnReintentar.png");
+    background-size: 90% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0;
+    border: 0;
+    /*height: 100%;*/
+    aspect-ratio: 3.02/1;
+    background-color: transparent;
+}
+
+
+
+

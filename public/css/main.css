@@ -1,0 +1,41 @@
+fieldset {
+    border: 0;
+}
+
+label {
+    display: block;
+}
+
+/* select with CSS avatar icons */
+option.avatar {
+    background-repeat: no-repeat !important;
+    padding-left: 20px;
+}
+
+.avatar .ui-icon {
+    background-position: left top;
+}
+
+span.texto-select-idioma {
+    font-size: 18px;
+    color: #ff6c00;
+}
+
+a:link {
+    color: black;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: #FFC300;
+}
+
+/* selected link */
+a:active {
+    color: black;
+}

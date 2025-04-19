@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--begin::Head-->
+
+<head>
+	<base href="/">
+	<title>Mic - Play</title>
+	<meta name="description" content="..." />
+	<meta name="keywords" content="idioma, aprendizaje, pronunciacion" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Mic- Play" />
+	<link rel="shortcut icon" href="/images/icon.ico" />
+	<!--begin::Fonts-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+	<link href="/css/style.fonts.css" rel="stylesheet" type="text/css" />
+	<!--end::Fonts-->
+	<!--begin::Global Stylesheets Bundle(used by all pages)-->
+	<link href="/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+	<link href=" /css/style.bundle.css" rel="stylesheet" type="text/css" />
+
+	<!--begin::Sidebar-->
+	<link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="/css/animate.css">
+	<link rel="stylesheet" href="/css/style.sidebar.css">
+	<link rel="stylesheet" href="/css/media-queries.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!--end::Sidebar-->
+
+</head>
+<!--end::Head-->
+
+<!-- Sidebar  order-2 order-md-1-->
+<nav class="sidebar" style="background-color:#DCDCDC;">
+	<div class="d-flex align-items-center">
+		<div class="d-flex align-items-center">
+			<!--begin::Logo-->
+			<a style="margin-top: 20%; margin-left: 30%;">
+				<img alt="Logo" src="/images/logo-sidebar.png" class="h-30px h-md-25px" />
+			</a>
+			<!--end::Logo image-->
+		</div>
+		<!-- close sidebar menu -->
+		<div class="dismiss">
+			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" class="bi bi-x"
+				viewBox="0 0 16 16">
+				<path
+					d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+			</svg>
+		</div>
+	</div>
+	<!--begin::Content login -->
+	<div class="d-flex flex-center flex-column flex-column-fluid">
+		<!--begin::Wrapper-->
+		<div class="w-lg-350px p-10 p-lg-15 mx-auto"
+			style="background-color:#FFFFFF; margin-top: 5%; border-radius: 10px;">
+			<!--begin::Form action="<?//= base_url("/user/login") ?>"-->
+			<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post">
+				<!--begin::Heading-->
+				<div class="text-left mb-10">
+					<!--begin::Title-->
+					<h4 class="text-dark text-black bahnschriftBold" style="font-size:20px;">Ingreso a la plataforma
+					</h4>
+					<!--end::Title-->
+				</div>
+				<!--begin::Heading-->
+				<!--begin::Input group-->
+				<div class="fv-row mb-10">
+					<!--begin::Label-->
+					<label class="form-label fs-6 text-dark bahnschriftRegular">Ingresa tu RUT</label>
+					<!--end::Label-->
+					<!--begin::Input-->
+					<input
+						class="form-control form-control-lg form-control-solid border border-warning border-3 rounded-3 bahnschrifRegular"
+						type="text" name="rut" id="rut" autocomplete="off" placeholder="11.111.111-1" />
+					<!--end::Input-->
+				</div>
+				<!--end::Input group-->
+				<!--begin::Input group-->
+				<div class="mb-10 fv-row" data-kt-password-meter="true">
+					<!--begin::Wrapper-->
+					<div class="mb-1">
+						<!--begin::Label-->
+						<label class="form-label text-dark fs-6 bahnschriftRegular">Ingresa tu clave</label>
+						<!--end::Label-->
+						<!--begin::Input wrapper-->
+						<div class="position-relative mb-3">
+							<input
+								class="form-control form-control-lg form-control-solid border border-warning border-3 rounded-3 bahnschrifBold bahnschriftRegular"
+								type="password" placeholder="******" name="password" autocomplete="off" id="password" />
+							<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+								data-kt-password-meter-control="visibility">
+								<i class="bi bi-eye-slash fs-2"></i>
+								<i class="bi bi-eye fs-2 d-none"></i>
+							</span>
+						</div>
+						<!--end::Input wrapper-->
+						<!--begin::Meter-->
+						<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+							<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+							<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+							<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+							<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+						</div>
+						<!--end::Meter-->
+					</div>
+					<!--end::Wrapper-->
+					<!--begin::Hint-->
+					<div class="text-muted bahnschriftRegular">Use 8 o más caracteres con una combinación de letras,
+						números &amp; símbolos.</div>
+					<!--end::Hint-->
+
+					<!--begin::Actions-->
+					<div class="text-center">
+						<!--begin::Submit button-->
+						<button id="kt_sign_in_submit" class="btn text-black btn-sm"
+							style="background-color:#FFC300; font-size:16px; margin-top: 10%; width:70%; border-radius: 10px; border: 1px solid #FFC300;"
+							type="submit">
+							<span class="indicator-label bahnschriftSemiBold">Ingresar</span>
+							<span class="indicator-progress bahnschriftSemiBold">Cargando...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+						</button>
+						<!--end::Submit button-->
+					</div>
+					<!--end::Actions-->
+					<!--begin::Hint-->
+					<div class="text-muted text-center bahnschriftRegular" style="margin-top: 10%">¿Problemas con tu
+						clave?</div>
+					<!--end::Hint-->
+
+					<div id="alertArea" class="alertArea bahnschrifBold" role="alert" style="margin-top: 10%">
+
+					</div>
+				</div>
+				<!--end::Input group=-->
+				<!--end::Input-->
+
+		</div>
+		<!--end::Input group-->
+
+		</form>
+	</div>
+	<!--end::Wrapper-->
+	</div>
+	<!--end::Content-->
+</nav>
+<!-- End sidebar -->
+
+<!--begin::Body class="position-relative" -->
+
+<body id="kt_body" data-bs-spy="scroll">
+	<!--begin::Main style = "background-color:#FFA07A; ;"-->
+	<div class="d-flex flex-column flex-root">
+
+		<!--begin::HEADER Section -->
+		<div class="bgi-no-repeat" id="home"
+			style="margin-bottom:5%; background-image: url(images/Cabecera.png); width: 100%;height: 100%;  background-position: center; background-repeat: no-repeat; background-size: cover; background-size: 100% 100%;">
+			<!--begin::Header data-kt-sticky-offset="{default: '500px', lg: '300px'}"-->
+			<div style="background-color:#08081d;" class="landing-header" data-kt-sticky="true"
+				data-kt-sticky-name="landing-header">
+				<!--begin::Container-->
+				<div class="container">
+					<!--begin::Wrapper-->
+					<div class="d-flex align-items-center justify-content-between">
+						<!--begin::Logo-->
+						<div class="d-flex align-items-center flex-equal">
+							<!--begin::Mobile menu toggle-->
+							<button class="btn btn-icon btn-active-color-primary me-3 d-flex d-lg-none"
+								id="kt_landing_menu_toggle">
+								<!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
+								<span class="svg-icon svg-icon-2hx">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+										fill="none">
+										<path
+											d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z"
+											fill="black" />
+										<path opacity="0.3"
+											d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z"
+											fill="black" />
+									</svg>
+								</span>
+								<!--end::Svg Icon-->
+							</button>
+							<!--end::Mobile menu toggle-->
+							<a href="/">
+								<img alt="Logo" src="/images/logo1.png" class="logo-default h-30px
+								h-lg-30px" />
+							</a>
+						</div>
+						<!--end::Logo-->
+						<!--begin::Menu wrapper  id="kt_header_nav_wrapper"-->
+						<div class="d-lg-block">
+							<div class="d-lg-block p-5 p-lg-0" data-kt-drawer="true" data-kt-drawer-name="landing-menu"
+								data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
+								data-kt-drawer-width="200px" data-kt-drawer-direction="start"
+								data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true"
+								data-kt-swapper-mode="prepend"
+								data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">
+								<!--begin::Menu menu-title-gray-500 fw-bold menu-state-title-primary-->
+								<div class="menu menu-title-gray-500 menu-column flex-nowrap menu-rounded menu-lg-row  nav nav-flush fs-1"
+									id="kt_landing_menu">
+									<!--begin::Menu item-->
+									<div class="menu-item ">
+										<!--begin::Menu link-->
+										<a class="bahnschriftLight menu-link nav-link active py-3 px-4 px-xxl-6"
+											href="/" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
+											Programas
+										</a>
+										<!--end::Menu link-->
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item-->
+									<div class="menu-item">
+										<!--begin::Menu link-->
+										<a class="bahnschriftLight menu-link nav-link py-3 px-4 px-xxl-6"
+											href="/#servicios" data-kt-scroll-toggle="true"
+											data-kt-drawer-dismiss="true">
+											Servicios
+										</a>
+										<!--end::Menu link-->
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item-->
+									<div class="menu-item">
+										<!--begin::Menu link-->
+										<a class="bahnschriftLight menu-link nav-link py-3 px-4 px-xxl-6"
+											href="/#ventajas" data-kt-scroll-toggle="true"
+											data-kt-drawer-dismiss="true">Ventajas</a>
+										<!--end::Menu link-->
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item-->
+									<div class="menu-item">
+										<!--begin::Menu link-->
+										<a class="bahnschriftLight menu-link nav-link py-3 px-4 px-xxl-6"
+											href="/#acercadenosotros" data-kt-scroll-toggle="true"
+											data-kt-drawer-dismiss="true">Sobre nosotros</a>
+										<!--end::Menu link-->
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item-->
+									<div class="menu-item">
+										<!--begin::Menu link-->
+										<a class="bahnschriftLight menu-link nav-link py-3 px-4 px-xxl-6"
+											href="/conocenos" data-kt-scroll-toggle="true"
+											data-kt-drawer-dismiss="true">Conócenos</a>
+										<!--end::Menu link-->
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item-->
+									<div class="menu-item">
+										<!--begin::Menu link-->
+										<a class="bahnschriftLight menu-link nav-link py-3 px-4 px-xxl-6" 
+										href="/faq" data-kt-scroll-toggle="true" 
+										data-kt-drawer-dismiss="true">F.A.Q</a>
+										<!--end::Menu link-->
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</div>
+						</div>
+						<!--end::Menu wrapper-->
+						<!--begin::Toolbar-->
+						<div class="flex-equal text-end ms-1">
+							<a href="#" class="btn open-menu"
+								style="background:#FFC300; height:100%; width:90%; font-size:18px;">
+								<span class="indicator-label bahnschriftBold">Entrar</span>
+							</a>
+						</div>
+						<!--end::Toolbar-->
+					</div>
+					<!--end::Wrapper-->
+				</div>
+				<!--end::Container-->
+			</div>
+			<!--end::Header-->
+			<!--begin::Landing hero-->
+			<div class="d-flex flex-column flex-center w-100 min-h-350px min-h-lg-500px px-9">
+				<!--begin::Heading-->
+				<div style="display: flex; align-items: center; justify-content: center; height: 100%; width:100%; ">
+					<div class="text-center mb-5 mb-lg-10 py-10 py-lg-20"
+						style="display: inline; align-items: center; justify-content: center;height: 100%; width:100%; ">
+						<h1 class="bahnschriftBold text-white lh-base fw-bolder fs-1x fs-lg-4x mb-15" style = "text-decoration: underline;">Conócenos</h1>
+                        <a style = "align-items: center; justify-content: center; ">
+                            <p class="fs-2 text-white fw-bold bahnschriftLight text-center" style = "margin-left: 25%; margin-right: 25%; margin-bottom: 10%;" >
+                                It’s no doubt that when a development takes longer to complete, additional costs to
+                                integrate and test each extra feature creeps up and haunts most of us.
+                                It’s no doubt that when a development takes longer to complete, additional costs to
+                                integrate and test each extra feature creeps up and haunts most of us.
+                                It’s no doubt that when a development takes longer to complete, additional costs to
+                                integrate and test each extra feature creeps up and haunts most of us.
+                            </p>
+                        </a>
+                    
+                       
+					</div>
+                    
+				</div>
+			</div>
+			<!--end::Landing hero-->
+		</div>
+		<!--end::HEADER Section-->
+
+	
+
+		<!--begin::ACERCA DE NOSOTROS Section py-lg-20-->
+		<div style="height:100%; width:100%;">
+			<!--begin::Container container-->
+			<div style="height:100%; width:100%;">
+				<div id="acercadenosotros">
+
+					<div class="d-flex flex-row flex-wrap position-relative" style="height:100%; width:100%;">
+						<div class="col-lg-5" style="margin-right: 5%; margin-top: 10%;">
+
+							<!--end::Sub-title=-->
+							<div class="text-center mb-12">
+								<!--begin::Title-->
+								<h1 class="bahnschriftBold text-black lh-base fw-bolder fs-1x fs-lg-3x mb-15">C.E.O</h1>
+								<!--end::Title-->
+							</div>
+							<div class="fs-2 text-muted fw-bold bahnschriftLight text-center">It’s no doubt that when a
+								development takes longer to complete, additional costs to
+								integrate and test each extra feature creeps up and haunts most of us.
+								It’s no doubt that when a
+								development takes longer to complete, additional costs to
+								integrate and test each extra feature creeps up and haunts most of us.
+								
+							</div>
+							<!--end::Sub-title=-->
+						</div>
+
+                        <div class="col-lg-6" style=" width: 100%; height:100%; background-image: url(images/AcercaNosotros1.png); background-size: 100% 100%;  background-position: left; background-repeat: no-repeat; ">
+
+							<!--begin::Redes flex-center position-relative margin-bottom:20%; margin-top:20%; justify-content-around-->
+							<div class="d-flex flex-row" style="width: 100%; height:100%; margin-bottom:15%; margin-top:10%; margin-left:-10%;">
+								
+								<div class="d-flex" style="margin-top:8%; display: flex; align-items: center; justify-content:left;">
+									<img src="images/CarlosNombre.png" class="mh-450px mh-lg-400px" alt="CEO" />
+								</div>
+							</div>
+							<!--end::Redes-->
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--end::Container-->
+		</div>
+		<!--end::ACERCA DE NOSOTROS Section-->
+
+
+		<!--begin::ACERCA DE NOSOTROS Section py-lg-20-->
+		<div class=" " style="height:100%; width:100%;">
+			<!--begin::Container container-->
+			<div style="height:100%; width:100%;">
+				<div id="acercadenosotros">
+
+					<div class="d-flex flex-row flex-wrap position-relative" style="height:100%; width:100%; ">
+						<div class="col-lg-6" 
+						style=" width: 100%; height:100%; background-image: url(images/AcercaNosotros2.png); background-size: 100% 100%;  background-position: left; background-repeat: no-repeat; ">
+
+							<!--begin::Redes flex-center position-relative margin-bottom:20%; margin-top:20%; -->
+							<div class="d-flex flex-row" style="width: 100%; height:100%; margin-bottom:15%; margin-top:10%;  justify-content:right;">
+								
+								<div class="d-flex" style="margin-top:10%; display: flex; align-items: right; justify-content:right; margin-right:-10%;">
+									<img src="images/FabianNombre.png" class="mh-350px mh-lg-400px" alt="Gerente IT" />
+								</div>
+							</div>
+							<!--end::Redes-->
+						</div>
+
+                        <div class="col-lg-5" style="margin-left: 5%; margin-top: 10%;">
+
+							<!--end::Sub-title=-->
+							<div class="text-center mb-12">
+								<!--begin::Title-->
+								<h1 class="bahnschriftBold text-black lh-base fw-bolder fs-1x fs-lg-3x mb-15">Gerente IT</h1>
+								<!--end::Title-->
+							</div>
+							<div class="fs-2 text-muted fw-bold bahnschriftLight text-center">It’s no doubt that when a
+								development takes longer to complete, additional costs to
+								integrate and test each extra feature creeps up and haunts most of us.
+								It’s no doubt that when a
+								development takes longer to complete, additional costs to
+								integrate and test each extra feature creeps up and haunts most of us.
+								
+							</div>
+							<!--end::Sub-title=-->
+							
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--end::Container-->
+		</div>
+		<!--end::ACERCA DE NOSOTROS Section-->
+
+
+
+		<!--begin::Footer Section-->
+		<div style="margin-top:2%; width: 100%; height:100%; background-image: url(images/Bajada.png); background-size: 100% 100%;  background-position: center; background-repeat: no-repeat; ">
+			<!--begin::Wrapper-->
+			<div class="pt-5">
+				<!--begin::Container-->
+				<div class="container">
+					<!--begin::Row rounded border border-3 rounded-3-->
+					<div class="row py-lg-4 " style="margin-top:10%;">
+						<!--begin::Redes-->
+						<div class="d-flex flex-row-reverse flex-wrap position-relative">
+							<!--begin::Client-->
+							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Instagram">
+								<img src="images/RSInstagram.png" class="mh-30px mh-lg-40px" alt="" />
+							</div>
+							<!--end::Client-->
+							<!--begin::Client-->
+							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Facebook">
+								<img src="images/RSFacebook.png" class="mh-30px mh-lg-40px" alt="" />
+							</div>
+							<!--end::Client-->
+							<!--begin::Client-->
+							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip"
+								title="Linkedin">
+								<img src="images/RSLinkedin.png" class="mh-30px mh-lg-40px" alt="" />
+							</div>
+							<!--end::Client-->
+						</div>
+						<!--end::Redes-->
+						<!--begin::Logo -->
+						<div class="d-flex flex-row flex-wrap position-relative" style="z-index:4; margin-top:-5%; margin-bottom:-5%; margin-left:5%; ">
+							<div class="d-flex flex-center m-3 m-md-6" >
+								<img src="images/LogotipoEdutecno.png" class="mh-30px mh-lg-80px" alt="" />
+							</div>
+						</div>
+						<!--end::Logo-->
+						<!--begin::Col-->
+						<div class="col-lg-12 py-10 ps-lg-16 border border-6 rounded-6"
+							style="border-radius: 32px; margin-bottom:5%; z-index:1;">
+							<!--begin::Navs-->
+							<div class="d-flex justify-content-center" style="margin-top: 5%;">
+								<!--begin::Links-->
+								<div class="d-flex fw-bold flex-column col-md-3">
+									<!--begin::Subtitle-->
+									<h4 class="fw-bolder text-gray-400 mb-6">Dirección</h4>
+									<!--end::Subtitle-->
+									<p class="text-white fs-5 mb-6">Huerfános 863, piso 2
+									<br>Galería España 
+									<br>Santiago, Chile</p>
+								</div>
+								<!--end::Links-->
+								<!--begin::Links-->
+								<div class="d-flex fw-bold flex-column col-md-2">
+									<!--begin::Subtitle-->
+									<h4 class="fw-bolder text-gray-400 mb-6">Telefono</h4>
+									<!--end::Subtitle-->
+									<!--begin::Link-->
+									<span class="text-white fs-5 mb-6">+56224398800/801</span>
+									<!--end::Link-->
+								</div>
+								<!--end::Links-->
+								<!--begin::Links-->
+								<div class="d-flex fw-bold flex-column col-md-3">
+									<!--begin::Subtitle-->
+									<h4 class="fw-bolder text-gray-400 mb-6">Email</h4>
+									<!--end::Subtitle-->
+									<!--begin::Link-->
+									<span class="text-white text-hover-primary fs-5 mb-6">marketing@edutecno.com</span>
+									<!--end::Link-->
+								</div>
+								<!--end::Links-->
+								<!--begin::Links ms-lg-20-->
+								<div class="d-flex fw-bold flex-column col-md-3">
+									<!--begin::Subtitle-->
+									<h4 class="fw-bolder text-gray-400 mb-6">Links de interes</h4>
+									<!--end::Subtitle-->
+									<!--begin::Link-->
+									<a href="#" class="text-white text-hover-primary fs-5 mb-6">Blog</a>
+									<!--end::Link-->
+									<!--begin::Link-->
+									<a href="#" class="text-white text-hover-primary fs-5 mb-6">Políticas de privacidad</a>
+									<!--end::Link-->
+								</div>
+								<!--end::Links-->
+							</div>
+							<!--end::Navs-->
+						</div>
+						<!--end::Col-->
+					</div>
+					<!--end::Row-->
+				</div>
+				<!--end::Container-->
+				<!--begin::Separator-->
+				<div class="landing-dark-separator"></div>
+				<!--end::Separator-->
+			</div>
+			<!--end::Wrapper-->
+		</div>
+		<!--end::Footer Section-->
+
+		<!--begin::Scrolltop-->
+		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true" style="background:#FFC300;">
+			<span class="svg-icon" fill="black">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" />
+					<path
+						d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" />
+				</svg>
+			</span>
+		</div>
+		<!--end::Scrolltop-->
+
+	</div>
+	<!--end::Main-->
+	<script>var hostUrl = "assets/";</script>
+	<!--begin::Javascript-->
+	<!--begin::Global Javascript Bundle(used by all pages)-->
+
+	<script src="/plugins/global/plugins.bundle.js"></script>
+	<script src="/js/scripts.bundle.js"></script>
+
+	<script src="/js/sidebar/jquery-3.3.1.min.js"></script>
+	<script src="/js/sidebar/jquery-migrate-3.0.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script src="/js/sidebar/jquery.backstretch.min.js"></script>
+	<script src="/js/sidebar/wow.min.js"></script>
+	<script src="/js/sidebar/jquery.waypoints.min.js"></script>
+	<script src="/js/sidebar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/js/sidebar/scripts.js"></script>
+	<!--end::Global Javascript Bundle-->
+
+	<script>
+		"use strict";
+		// Class definition
+		var KTSigninGeneral = function () {
+			// Elements
+			var form;
+			var submitButton;
+			var validator;
+
+			// Handle form
+			var handleForm = function (e) {
+				// Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+				validator = FormValidation.formValidation(
+					form, {
+					fields: {
+						'rut': {
+							validators: {
+								notEmpty: {
+									message: 'El RUT es requerido'
+								}
+							}
+						},
+						'password': {
+							validators: {
+								notEmpty: {
+									message: 'La clave es requerida'
+								}
+							}
+						}
+					},
+					plugins: {
+						trigger: new FormValidation.plugins.Trigger(),
+						bootstrap: new FormValidation.plugins.Bootstrap5({
+							rowSelector: '.fv-row'
+						})
+					}
+				}
+				);
+
+				submitButton.addEventListener('click', e => {
+					e.preventDefault();
+
+					if (validator) {
+						validator.validate().then(function (status) {
+							if (status == 'Valid') {
+								submitButton.setAttribute('data-kt-indicator', 'on');
+								submitButton.disabled = true;
+
+								var formData = {
+									'rut': $("#rut").val(),
+									'pass': $("#password").val()
+								};
+
+								var request = $.ajax({
+									type: "POST",
+									url: "<?= base_url('/user/login') ?>",
+									data: formData,
+									dataType: "json",
+									success: function (data) {
+										submitButton.removeAttribute('data-kt-indicator');
+										submitButton.disabled = false;
+
+										window.location.href = "/pronunciation";
+
+									},
+									error: function (e) {
+										submitButton.removeAttribute('data-kt-indicator');
+										submitButton.disabled = false;
+
+										$('.alertArea').text(e.responseText);
+
+										document.getElementById("alertArea").setAttribute('class', 'alert alert-danger');
+
+
+									},
+
+								});
+							} else {
+								submitButton.removeAttribute('data-kt-indicator');
+								submitButton.disabled = false;
+								Swal.fire({
+									text: "Debe ingresar los datos solicitados",
+									icon: "error",
+									buttonsStyling: false,
+									confirmButtonText: "Ok",
+									showClass: {
+										popup: 'animate__animated animate__fadeInDown'
+									},
+									hideClass: {
+										popup: 'animate__animated animate__fadeOutUp'
+									},
+									customClass: {
+										confirmButton: "btn btn-primary"
+									}
+								});
+							}
+
+
+
+
+						});
+					}
+
+				});
+
+			}
+
+			// Public functions
+			return {
+				// Initialization
+				init: function () {
+					form = document.querySelector('#kt_sign_in_form');
+					submitButton = document.querySelector('#kt_sign_in_submit');
+
+					handleForm();
+				}
+			};
+		}();
+
+		// On document ready
+		KTUtil.onDOMContentLoaded(function () {
+			KTSigninGeneral.init();
+		});
+	</script>
+
+	<!--end::Javascript-->
+</body>
+<!--end::Body-->
+
+</html>

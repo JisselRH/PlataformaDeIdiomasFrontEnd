@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: bahnschrift;
+  src: url("../fonts/bahnschrift.ttf");
+}
+
+.bahnschriftLight {
+  font-family: bahnschrift;
+  font-weight: lighter;
+}
+
+.bahnschriftRegular {
+  font-family: bahnschrift;
+  font-weight: normal;
+}
+
+.bahnschriftSemiBold {
+  font-family: bahnschrift;
+  font-weight: 600;
+}
+
+.bahnschriftBold {
+  font-family: bahnschrift;
+  font-weight: bolder;
+}
+
+.responsive {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
