@@ -16,7 +16,7 @@ class Dashboard extends BaseController
 
         $ch = curl_init();
         //curl_setopt($ch, CURLOPT_URL, "https://backend.chacota.cl/estadisticas");
-        curl_setopt($ch, CURLOPT_URL, "http://localhost:3000/estadisticas/estadisticas");
+        curl_setopt($ch, CURLOPT_URL, "http://172.16.21.112:3000/estadisticas/estadisticas");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -299,7 +299,7 @@ class Dashboard extends BaseController
 
             $urlParameters  = "id=" . session('id') . "&nota=" . $this->request->getPost('nota') . "&tipo=" . $this->request->getPost('tipo') . "&tipo_eval=" . $tipoEval;
 
-            curl_setopt($ch, CURLOPT_URL, "http://localhost:3000/estadisticas/updateAchievement");
+            curl_setopt($ch, CURLOPT_URL, "http://172.16.21.112:3000/estadisticas/updateAchievement");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HEADER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -348,7 +348,7 @@ class Dashboard extends BaseController
 
             $urlParameters  = "id=" . session('id') . "&experiencia=" . $this->request->getPost('experiencia') . "&tipo=" . $this->request->getPost('tipo');
 
-            curl_setopt($ch, CURLOPT_URL, "http://localhost:3000/estadisticas/updateExperience");
+            curl_setopt($ch, CURLOPT_URL, "http://172.16.21.112:3000/estadisticas/updateExperience");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HEADER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

@@ -31,7 +31,7 @@ class Dialog extends BaseController
         $ch = curl_init();
         //curl_setopt($ch, CURLOPT_URL, "https://backend.chacota.cl/login");
         //curl_setopt($ch, CURLOPT_URL, "http://localhost:8081/texttospeech");
-        curl_setopt($ch, CURLOPT_URL, "http://localhost:3000/texttospeech");
+        curl_setopt($ch, CURLOPT_URL, "http://172.16.21.112:3000/texttospeech");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

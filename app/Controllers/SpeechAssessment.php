@@ -17,7 +17,7 @@ class SpeechAssessment extends BaseController
 
         // log_message('info', 'phrase number:'.$phraseNumber);
 
-        $url = "http://localhost:3000/speechassessment/scripted";
+        $url = "http://172.16.21.112:3000/speechassessment/scripted";
         //$url = "http://localhost:8081/speechassessment/scripted";
         //$url = "https://backend.chacota.cl/speechassessment/scripted";
         

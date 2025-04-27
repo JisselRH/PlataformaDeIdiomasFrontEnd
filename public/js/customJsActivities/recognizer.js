@@ -117,8 +117,6 @@ async function pronRecognition(referenceText = '', customFunction) {
     console.log("starting recognition")
 
     const tokenObj = await getToken();
-    console.log(tokenObj.token);
-    console.log(tokenObj.region);
 
     if (tokenObj != 503 && tokenObj != 400 && tokenObj != 408) {
 

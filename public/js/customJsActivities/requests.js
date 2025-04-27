@@ -3,13 +3,13 @@
 
 var iduser = localStorage.getItem('iduser');
 
-const localUrl = 'http://localhost:3000';
+const localUrl = 'http://172.16.21.112:3000';
 
 async function getWords(context) {
     var res = null;
 
     await axios.post(
-        'http://localhost:3000/exercise/gen-words',
+        'http://172.16.21.112:3000/exercise/gen-words',
         { context, iduser }
     ).then((response) => {
         res = response.data.words.slice(0, 20);
@@ -43,7 +43,7 @@ async function getCharacter(context, words) {
     var res = null;
 
     await axios.post(
-        'http://localhost:3000/exercise/gen-character',
+        'http://172.16.21.112:3000/exercise/gen-character',
         { context, words, iduser }
     )
         .then((response) => {
@@ -74,7 +74,7 @@ async function genPhrases(context, words) {
     var res = null;
 
     await axios.post(
-        'http://localhost:3000/exercise/gen-phrases',
+        'http://172.16.21.112:3000/exercise/gen-phrases',
         { context, words, iduser }
     )
         .then((response) => {
@@ -121,7 +121,7 @@ async function getToken() {
 
         var res = null;
 
-        const nodeUrl = 'http://localhost:3000';
+        const nodeUrl = 'http://172.16.21.112:3000';
 
         await axios.get(`${nodeUrl}/token/get-speech-token`)
             .then((response) => {
