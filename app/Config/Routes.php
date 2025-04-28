@@ -42,6 +42,7 @@ $routes->get('/conocenos', 'Home::conocenos');
 $routes->get('/faq', 'Home::faq');
 
 /***     EXERCISE     ****/
+$routes->get('exercise/select', 'Exercise::select');
 $routes->get('/exercise/select', 'Exercise::select');
 $routes->get('/exercise/create', 'Exercise::create');
 $routes->get('/exercise/words', 'Exercise::words');
