@@ -126,11 +126,11 @@ class Router implements RouterInterface
         $this->controller = $this->collection->getDefaultController();
         $this->method     = $this->collection->getDefaultMethod();
 
-        $this->collection->setHTTPVerb(strtolower($request->getMethod() ?? $_SERVER['REQUEST_METHOD']));
+        //$this->collection->setHTTPVerb(strtolower($request->getMethod() ?? $_SERVER['REQUEST_METHOD']));
 
         $this->translateURIDashes = $this->collection->shouldTranslateURIDashes();
 
-        if ($this->collection->shouldAutoRoute()) {
+        /*if ($this->collection->shouldAutoRoute()) {
             $autoRoutesImproved = config('Feature')->autoRoutesImproved ?? false;
             if ($autoRoutesImproved) {
                 $this->autoRouter = new AutoRouterImproved(
@@ -151,7 +151,7 @@ class Router implements RouterInterface
                     $this->collection->getHTTPVerb()
                 );
             }
-        }
+        }*/
     }
 
     /**
@@ -164,11 +164,11 @@ class Router implements RouterInterface
     {
         // If we cannot find a URI to match against, then
         // everything runs off of its default settings.
-        if ($uri === null || $uri === '') {
+        /*if ($uri === null || $uri === '') {
             return strpos($this->controller, '\\') === false
                 ? $this->collection->getDefaultNamespace() . $this->controller
                 : $this->controller;
-        }
+        }*/
 
         // Decode URL-encoded string
         $uri = urldecode($uri);
@@ -178,7 +178,7 @@ class Router implements RouterInterface
         $this->filtersInfo = [];
 
         // Checks defined routes
-        if ($this->checkRoutes($uri)) {
+        /*if ($this->checkRoutes($uri)) {
             if ($this->collection->isFiltered($this->matchedRoute[0])) {
                 $multipleFiltersEnabled = config('Feature')->multipleFilters ?? false;
                 if ($multipleFiltersEnabled) {
@@ -190,7 +190,7 @@ class Router implements RouterInterface
             }
 
             return $this->controller;
-        }
+        }*/
 
         // Still here? Then we can try to match the URI against
         // Controllers/directories, but the application may not
@@ -654,6 +654,6 @@ class Router implements RouterInterface
     {
         $this->matchedRoute = [$route, $handler];
 
-        $this->matchedRouteOptions = $this->collection->getRoutesOptions($route);
+        //$this->matchedRouteOptions = $this->collection->getRoutesOptions($route);
     }
 }
