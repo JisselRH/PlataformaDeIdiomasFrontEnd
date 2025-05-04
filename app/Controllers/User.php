@@ -15,11 +15,11 @@ class User extends BaseController
 
 			$ch = curl_init();
 			//curl_setopt($ch, CURLOPT_URL, "https://backend.chacota.cl/login");
-			//http://172.16.21.112:3000//user/login
+			//https://172.16.21.112:3000//user/login
 
 			$urlParameters  = "rut=".$this->request->getPost('rut')."&pass=".$this->request->getPost('pass');
 
-			curl_setopt($ch, CURLOPT_URL, "http://172.16.21.112:3000/user/login");
+			curl_setopt($ch, CURLOPT_URL, "https://172.16.21.112:3000/user/login");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_HEADER, true);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
