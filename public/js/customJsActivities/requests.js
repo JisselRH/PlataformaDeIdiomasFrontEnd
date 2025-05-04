@@ -3,13 +3,13 @@
 
 var iduser = localStorage.getItem('iduser');
 
-const localUrl = 'https://172.16.21.112:3000';
+const localUrl = 'https://idiomas.edutecno.cl/api';
 
 async function getWords(context) {
     var res = null;
 
     await axios.post(
-        'http://172.16.21.112:3000/exercise/gen-words',
+        'https://idiomas.edutecno.cl/api/exercise/gen-words',
         { context, iduser }
     ).then((response) => {
         res = response.data.words.slice(0, 20);
@@ -43,7 +43,7 @@ async function getCharacter(context, words) {
     var res = null;
 
     await axios.post(
-        'https://172.16.21.112:3000/exercise/gen-character',
+        'https://idiomas.edutecno.cl/api/exercise/gen-character',
         { context, words, iduser }
     )
         .then((response) => {
@@ -74,7 +74,7 @@ async function genPhrases(context, words) {
     var res = null;
 
     await axios.post(
-        'https://172.16.21.112:3000/exercise/gen-phrases',
+        'https://idiomas.edutecno.cl/api/exercise/gen-phrases',
         { context, words, iduser }
     )
         .then((response) => {
@@ -121,7 +121,7 @@ async function getToken() {
 
         var res = null;
 
-        const nodeUrl = 'https://172.16.21.112:3000';
+        const nodeUrl = 'https://idiomas.edutecno.cl/api';
 
         await axios.get(`${nodeUrl}/token/get-speech-token`)
             .then((response) => {
