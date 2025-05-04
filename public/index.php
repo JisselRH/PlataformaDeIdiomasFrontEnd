@@ -1,13 +1,5 @@
 <?php
 
-echo '<pre>';
-echo '<h2>$_SERVER:</h2>';
-print_r($_SERVER);
-echo '<h2>$_ENV:</h2>';
-print_r($_ENV);
-echo '</pre>';
-
-
 header('Cross-Origin-Opener-Policy: same-origin');
 //header('Cross-Origin-Embedder-Policy: require-corp');
 

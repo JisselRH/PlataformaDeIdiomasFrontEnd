@@ -9,7 +9,7 @@ async function getWords(context) {
     var res = null;
 
     await axios.post(
-        'https://172.16.21.112:3000/exercise/gen-words',
+        'http://172.16.21.112:3000/exercise/gen-words',
         { context, iduser }
     ).then((response) => {
         res = response.data.words.slice(0, 20);
