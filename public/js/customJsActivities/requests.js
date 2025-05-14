@@ -3,10 +3,11 @@
 
 var iduser = localStorage.getItem('iduser');
 
-const localUrl = 'https://idiomas.edutecno.cl/api';
+const localUrl = 'https://idiomas.edutecno.cl/api'
 
 async function getWords(context) {
     var res = null;
+    console.log(" getWords ", context)
 
     await axios.post(
         'https://idiomas.edutecno.cl/api/exercise/gen-words',
@@ -15,6 +16,7 @@ async function getWords(context) {
         res = response.data.words.slice(0, 20);
 
     }).catch(function (error) {
+        console.log("*-* ERROR getWords--> ", error)
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -35,7 +37,7 @@ async function getWords(context) {
         }
         console.log(error.config);
     });
-    console.log(res);
+    console.log("ERROR: ",res);
     return res;
 }
 

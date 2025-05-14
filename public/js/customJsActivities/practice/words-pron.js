@@ -81,8 +81,19 @@ $(document).ready(async function () {
 
         if (currentState.recording) {
             console.log("DONE RECORDING");
+            document.querySelector('.texto-prueba').textContent = "DONE RECORDING";
+
             try {
                 const result = await stopRecognition(reco);
+
+                if (result) {
+                    console.log("Grabación exitosa:", result);
+                    document.querySelector('.texto-prueba').textContent = "Grabación exitosa";
+                } else {
+                    console.log("Error en la grabación.");
+                    document.querySelector('.texto-prueba').textContent = "Error en la grabación.";
+                }
+
                 const score = getScore(result);
                 const wordDiv = $('.active-word');
                 wordDiv.find('.word-feedback').text(`${score}/100`);
@@ -93,11 +104,21 @@ $(document).ready(async function () {
 
                 nextWord();
             } catch (error) {
+                console.error("Error al detener la grabación:", error);
             }
 
         }
         else {
             console.log("START RECORDING");
+            document.querySelector('.texto-prueba').textContent = "START RECORDING";
+
+            if (globalStream && globalStream.active && globalStream.getAudioTracks().length > 0) {
+                console.log("Audio está siendo capturado.");
+                document.querySelector('.texto-prueba').textContent = "Audio está siendo capturado.";
+            } else {
+                console.log("No hay captura de audio.");
+                document.querySelector('.texto-prueba').textContent = "No hay captura de audio.";
+            }
 
             var btn = $('.active-word').find('.btn-content');
             btn.find('.btn').removeClass("btn-talk");
@@ -105,6 +126,8 @@ $(document).ready(async function () {
 
             const text = selectedWord();
             console.log(text);
+            /*reco = await
+                (text);*/
             reco = await pronRecognition(text);
 
         }
@@ -180,7 +203,7 @@ function changeTalkBtn(talkBtn, currentState) {
     else {
         talkBtn.addClass('talking');
     }
-   
+
 }
 
 function getCurrentSelectedWord() {

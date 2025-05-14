@@ -122,10 +122,6 @@ async function pronRecognition(referenceText = '', customFunction) {
 
         const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.token, tokenObj.region);
 
-        /*const token = "";
-        const region = "eastus";
-        const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);*/
-
         speechConfig.speechRecognitionLanguage = 'en-US';
 
         const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -143,8 +139,6 @@ async function pronRecognition(referenceText = '', customFunction) {
         }
         pronunciationAssessmentConfig.applyTo(recognizer);
 
-
-        // recognizer.startContinuousRecognitionAsync();
         recognizer.recognizeOnceAsync();
 
         return recognizer;
@@ -159,6 +153,7 @@ async function pronRecognition(referenceText = '', customFunction) {
             showModalError(1);
         }
     }
+   return true;
 
 }
 

@@ -14,8 +14,6 @@ class User extends BaseController
 			);
 
 			$ch = curl_init();
-			//curl_setopt($ch, CURLOPT_URL, "https://backend.chacota.cl/login");
-			//https://idiomas.edutecno.cl/api/user/login
 
 			$urlParameters  = "rut=".$this->request->getPost('rut')."&pass=".$this->request->getPost('pass');
 

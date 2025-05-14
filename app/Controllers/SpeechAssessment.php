@@ -18,8 +18,6 @@ class SpeechAssessment extends BaseController
         // log_message('info', 'phrase number:'.$phraseNumber);
 
         $url = "https://idiomas.edutecno.cl/api/speechassessment/scripted";
-        //$url = "http://localhost:8081/speechassessment/scripted";
-        //$url = "https://backend.chacota.cl/speechassessment/scripted";
         
         $headers = ['Content-type: multipart/form-data'];
         $body = array("reference_text" => $referenceText, "audio" => $encodedAudioFile);

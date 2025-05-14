@@ -15,7 +15,7 @@ class Dashboard extends BaseController
         $urlParameters  = "id=" . session('id');
 
         $ch = curl_init();
-        //curl_setopt($ch, CURLOPT_URL, "https://backend.chacota.cl/estadisticas");
+        
         curl_setopt($ch, CURLOPT_URL, "https://idiomas.edutecno.cl/api/estadisticas/estadisticas");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
