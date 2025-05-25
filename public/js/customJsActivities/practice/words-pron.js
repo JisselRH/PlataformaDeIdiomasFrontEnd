@@ -3,13 +3,14 @@ import { getCookieValue } from "../exercise-cookie.js";
 import { pronRecognition, stopRecognition } from "../recognizer.js";
 
 // --- Variables Globales ---
-var globalStream = null; // Guardará el stream del micrófono
-var reco = null; // Guardará la instancia del reconocedor
-const currentState = { recording: false }; // Estado actual de la grabación
+var globalStream = null;
+var reco = null;
+const currentState = { recording: false };
+const isMobileApp = window.hasOwnProperty('cordova') || 
+                   window.hasOwnProperty('Capacitor') || 
+                   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // --- Funciones de Utilidad ---
-
-// Muestra mensajes de estado/error al usuario
 function updateUserFeedback(message, isError = false) {
     const feedbackElement = document.querySelector('.texto-prueba');
     if (feedbackElement) {
@@ -22,7 +23,6 @@ function updateUserFeedback(message, isError = false) {
     }
 }
 
-// Habilita/Deshabilita UI de grabación
 function enableRecordingFeatures(enable = true) {
     const talkButtons = $('.btn-talk-clic'); 
     if (enable) {
@@ -36,17 +36,20 @@ function enableRecordingFeatures(enable = true) {
     }
 }
 
-// Maneja errores de audio específicos
 function handleAudioError(error) {
     console.error("Error accessing audio devices:", error.name, error.message, error);
     globalStream = null;
 
     let userMessage = "Ocurrió un error inesperado con el micrófono.";
+    let showMobileSettingsBtn = false;
 
     switch (error.name) {
         case 'NotAllowedError':
         case 'PermissionDeniedError':
-            userMessage = "Permiso denegado. Habilita el micrófono en los ajustes de tu navegador.";
+            userMessage = isMobileApp 
+                ? "Permiso denegado. Habilita el micrófono en ajustes de la aplicación." 
+                : "Permiso denegado. Habilita el micrófono en los ajustes de tu navegador.";
+            showMobileSettingsBtn = isMobileApp;
             break;
         case 'NotFoundError':
         case 'DevicesNotFoundError':
@@ -67,29 +70,53 @@ function handleAudioError(error) {
             userMessage = "Error de configuración. No se solicitaron pistas de audio o video.";
             break;
         case 'SecurityError':
-             userMessage = "Acceso al micrófono bloqueado por razones de seguridad. Usa una conexión HTTPS.";
-             break;
+            userMessage = "Acceso al micrófono bloqueado por razones de seguridad. Usa una conexión HTTPS.";
+            break;
         default:
             userMessage = `Error de micrófono: ${error.name}. Revisa la consola para más detalles.`;
     }
 
     updateUserFeedback(userMessage, true);
-    enableRecordingFeatures(false); 
+    enableRecordingFeatures(false);
+
+    if (showMobileSettingsBtn && $('#open-settings-btn').length === 0) {
+        $('body').append(`
+            <button id="open-settings-btn" class="btn btn-settings" style="
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 20px;
+                background: #4285f4;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                z-index: 1000;
+            ">
+                Abrir Configuración
+            </button>
+        `);
+        
+        $('#open-settings-btn').click(() => {
+            if (window.cordova && cordova.plugins.diagnostic) {
+                cordova.plugins.diagnostic.switchToSettings();
+            } else {
+                alert('Por favor, ve a Configuración > Aplicaciones > [Esta app] > Permisos');
+            }
+        });
+    }
 }
 
-// Obtiene la palabra activa
 function selectedWord() {
     return $('.active-word').find('.word-content').text();
 }
 
-// Procesa el puntaje (con validación)
 function processScore(result) {
     try {
-        // Validación robusta
         if (!result || !result.NBest || !result.NBest[0] || !result.NBest[0].PronunciationAssessment) {
             console.error("Resultado del reconocimiento incompleto o inválido:", result);
             updateUserFeedback("No se pudo obtener el puntaje.", true);
-            return null; // Devuelve null si no se puede obtener
+            return null;
         }
         const score = result.NBest[0].PronunciationAssessment.PronScore;
         console.log("Score obtained:", score);
@@ -97,15 +124,71 @@ function processScore(result) {
     } catch (error) {
         console.error("Error al procesar el puntaje:", error, result);
         updateUserFeedback("Error al procesar el puntaje.", true);
-        return null; // Devuelve null en caso de error
+        return null;
     }
 }
 
-// --- Flujo Principal (jQuery Ready) ---
+// --- Función para Inicializar Micrófono ---
+async function initializeMicrophone() {
+    try {
+        console.log("Iniciando proceso de acceso al micrófono...");
+        
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error('API de medios no soportada en este navegador');
+        }
+
+        let hasMicroPermission = false;
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            hasMicroPermission = devices.some(device => 
+                device.kind === 'audioinput' && device.deviceId !== '');
+        } catch (e) {
+            console.warn("No se pudo enumerar dispositivos:", e);
+        }
+
+        if (isMobileApp && !hasMicroPermission) {
+            updateUserFeedback("Por favor, habilita los permisos del micrófono en la configuración de tu dispositivo.", true);
+            return false;
+        }
+
+        globalStream = await navigator.mediaDevices.getUserMedia({ 
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true
+            }, 
+            video: false 
+        });
+
+        globalStream.getAudioTracks().forEach(track => {
+            track.onended = () => {
+                console.log("El track de audio ha terminado");
+                handleAudioError(new Error("El acceso al micrófono fue revocado"));
+            };
+        });
+
+        console.log("Micrófono inicializado correctamente");
+        enableRecordingFeatures(true);
+        return true;
+
+    } catch (error) {
+        console.error("Error en initializeMicrophone:", error);
+        
+        if (isMobileApp && error.name === 'NotAllowedError') {
+            updateUserFeedback("Permiso denegado. Por favor, habilita el micrófono en los ajustes de la aplicación.", true);
+        } else {
+            handleAudioError(error);
+        }
+        
+        return false;
+    }
+}
+
+// --- Flujo Principal ---
 $(document).ready(async function () {
     updateUserFeedback("Inicializando ejercicio...");
 
-    // 1. Obtener Token (con manejo de errores)
+    // 1. Obtener Token
     let token;
     try {
         token = await getToken();
@@ -114,12 +197,12 @@ $(document).ready(async function () {
     } catch (error) {
         console.error("Error al obtener el token:", error);
         updateUserFeedback("Error de autenticación. No se puede continuar.", true);
-        showModalError(1); // O un modal específico para token
-        return; // Detener ejecución si no hay token
+        showModalError(1);
+        return;
     }
 
-    // 2. Obtener Palabras (con manejo de errores)
-    const words = getCookieValue('words'); // Asumiendo que esto devuelve null/undefined/503 en error
+    // 2. Obtener Palabras
+    const words = getCookieValue('words');
     const wordsContainer = $('.exercise-word-container');
     const sample = wordsContainer.find('.exercise-word');
 
@@ -132,7 +215,6 @@ $(document).ready(async function () {
             if (first) {
                 wordElement.addClass('active-word');
                 first = false;
-                // No habilitar botón aquí, esperar a tener micro
             }
         });
         sample.remove();
@@ -143,46 +225,91 @@ $(document).ready(async function () {
         updateUserFeedback(message, true);
         showModalError(errorType);
         sample.remove();
-        return; // Detener si no hay palabras
+        return;
     }
 
-    // 3. Solicitar Acceso al Micrófono (con manejo de errores mejorado)
-    try {
-        console.log("Requesting microphone access...");
-        globalStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-        console.log("Microphone access granted and stream obtained.");
-        enableRecordingFeatures(true); // Habilitar UI AHORA
-    } catch (error) {
-        handleAudioError(error); // Usar la función centralizada
-        return; // Detener si no hay micro
+    // 3. Inicializar Micrófono
+    const micInitialized = await initializeMicrophone();
+    
+    if (!micInitialized) {
+        const retryHtml = `
+            <div class="mic-retry-panel" style="
+                text-align: center;
+                padding: 20px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin: 20px 0;
+            ">
+                <p>No se pudo acceder al micrófono</p>
+                <button class="btn-retry-mic" style="
+                    margin: 10px;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #4285f4;
+                    color: white;
+                    cursor: pointer;
+                ">
+                    Reintentar
+                </button>
+                ${isMobileApp ? `
+                <button class="btn-open-settings" style="
+                    margin: 10px;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #34a853;
+                    color: white;
+                    cursor: pointer;
+                ">
+                    Abrir Configuración
+                </button>` : ''}
+            </div>
+        `;
+        
+        $('.mic-container').html(retryHtml);
+        
+        $('.btn-retry-mic').click(async () => {
+            $('.mic-retry-panel').html('<p>Intentando nuevamente...</p>');
+            await initializeMicrophone();
+        });
+        
+        if (isMobileApp) {
+            $('.btn-open-settings').click(() => {
+                if (window.cordova && cordova.plugins.diagnostic) {
+                    cordova.plugins.diagnostic.switchToSettings();
+                } else {
+                    alert('Por favor, habilita los permisos manualmente en configuración');
+                }
+            });
+        }
+        
+        return;
     }
 
-    // 4. Configurar Event Listener del Botón (con manejo de errores)
+    // 4. Configurar Event Listener del Botón
     $('.btn-talk-clic').click(async function () {
-        const $thisButton = $(this); // Guardar referencia al botón
+        const $thisButton = $(this);
 
-        // Chequeo robusto antes de actuar
         if (!globalStream || !globalStream.active || globalStream.getAudioTracks().length === 0) {
             updateUserFeedback("El micrófono no está disponible o el permiso fue revocado.", true);
-            // Intentar obtenerlo de nuevo o mostrar un error más permanente
             handleAudioError(new Error("Stream not available or inactive."));
             return;
         }
 
-        currentState.recording = !currentState.recording; // Cambiar estado ANTES
-        changeTalkBtn($thisButton, currentState); // Actualizar UI del botón
+        currentState.recording = !currentState.recording;
+        changeTalkBtn($thisButton, currentState);
 
         if (!currentState.recording) {
-            // --- Detener Grabación ---
             updateUserFeedback("Procesando audio...");
             try {
                 if (!reco) {
-                     console.warn("Attempted to stop recognition, but 'reco' was null.");
-                     updateUserFeedback("No se había iniciado ninguna grabación.", true);
-                     return; // No hay nada que detener
+                    console.warn("Attempted to stop recognition, but 'reco' was null.");
+                    updateUserFeedback("No se había iniciado ninguna grabación.", true);
+                    return;
                 }
                 const result = await stopRecognition(reco);
-                reco = null; // Limpiar 'reco' después de detener
+                reco = null;
 
                 if (!result) {
                     throw new Error("El reconocimiento no devolvió resultado.");
@@ -191,7 +318,7 @@ $(document).ready(async function () {
                 console.log("Recognition successful:", result);
                 updateUserFeedback("Grabación procesada.");
 
-                const score = processScore(result); // Usar función con validación
+                const score = processScore(result);
 
                 if (score !== null) {
                     const wordDiv = $('.active-word');
@@ -199,58 +326,51 @@ $(document).ready(async function () {
                     const btn = wordDiv.find('.btn-content .btn');
                     btn.removeClass("btn-talk-active").addClass("btn-talk-finished");
                     nextWord();
-                } else {
-                     // El error ya se mostró en processScore o stopRecognition
-                     // Opcional: Revertir el estado del botón si es necesario
                 }
 
             } catch (error) {
                 console.error("Error durante la detención o procesamiento del reconocimiento:", error);
                 updateUserFeedback(`Error al procesar: ${error.message || 'Desconocido.'}`, true);
-                reco = null; // Asegurarse de limpiar 'reco'
-                // Revertir UI si es necesario
-                currentState.recording = false; // Asegurar estado correcto
+                reco = null;
+                currentState.recording = false;
                 changeTalkBtn($thisButton, currentState);
             }
 
         } else {
-            // --- Iniciar Grabación ---
             updateUserFeedback("Escuchando...");
             const text = selectedWord();
             console.log("Starting recognition for:", text);
 
             try {
-                // Actualizar UI del botón específico
                 const btn = $('.active-word').find('.btn-content .btn');
                 btn.removeClass("btn-talk").addClass("btn-talk-active");
 
-                // Iniciar reconocimiento (con try...catch)
-                reco = await pronRecognition(text); // Asumiendo que esto inicia y devuelve el 'reco'
+                reco = await pronRecognition(text);
                 if (!reco) throw new Error("No se pudo iniciar el reconocedor.");
                 console.log("Recognition started.");
 
             } catch (error) {
                 console.error("Error al iniciar el reconocimiento:", error);
                 updateUserFeedback(`Error al iniciar: ${error.message || 'Desconocido.'}`, true);
-                currentState.recording = false; // Revertir estado
-                changeTalkBtn($thisButton, currentState); // Revertir UI
-                reco = null; // Limpiar
+                currentState.recording = false;
+                changeTalkBtn($thisButton, currentState);
+                reco = null;
             }
         }
     });
 
-    // 5. Botón 'Send' (si aún lo necesitas)
+    // 5. Botón 'Send'
     $('.btn-send').click(function () {
         nextWord();
     });
 
-    // --- Funciones Auxiliares (ya definidas en tu código) ---
+    // --- Funciones Auxiliares ---
     function showModalError(tipo) {
         console.log("showModal ERROR type:", tipo);
         $('#modal-fullscreen-xl').modal('hide');
         const modalId = (tipo === 1) ? '#error' : '#error-conexion';
         $(modalId).modal('show');
-    };
+    }
 
     function nextWord() {
         const activeWord = $('.active-word');
@@ -267,18 +387,17 @@ $(document).ready(async function () {
         } else {
             updateUserFeedback("¡Ejercicio completado!");
             console.log("FINISHED");
-            // Aquí podrías mostrar un botón de "Finalizar" o "Reintentar"
         }
     }
 
     function changeTalkBtn(talkBtn, state) {
         console.log("Changing button state:", state.recording);
-        if (!state.recording) { // Si NO está grabando (o sea, se detuvo)
-            talkBtn.removeClass('talking'); // Quitar clase 'talking'
-             $('.active-word .btn').removeClass("btn-talk-active").addClass("btn-talk");
-        } else { // Si SÍ está grabando
-            talkBtn.addClass('talking'); // Poner clase 'talking'
-             $('.active-word .btn').removeClass("btn-talk").addClass("btn-talk-active");
+        if (!state.recording) {
+            talkBtn.removeClass('talking');
+            $('.active-word .btn').removeClass("btn-talk-active").addClass("btn-talk");
+        } else {
+            talkBtn.addClass('talking');
+            $('.active-word .btn').removeClass("btn-talk").addClass("btn-talk-active");
         }
     }
 });
