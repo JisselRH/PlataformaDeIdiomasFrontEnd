@@ -128,29 +128,104 @@ function processScore(result) {
     }
 }
 
-// --- Función para Inicializar Micrófono ---
-async function initializeMicrophone() {
+// --- Función optimizada para verificar permisos ---
+async function checkMicrophonePermissions() {
     try {
-        console.log("Iniciando proceso de acceso al micrófono...");
-        
+        // 1. Verificar si el navegador soporta la API
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            throw new Error('API de medios no soportada en este navegador');
+            throw new Error('API de medios no soportada');
         }
 
-        let hasMicroPermission = false;
+        // 2. Verificar si ya tenemos permisos
+        let hasPermission = false;
         try {
             const devices = await navigator.mediaDevices.enumerateDevices();
-            hasMicroPermission = devices.some(device => 
+            hasPermission = devices.some(device => 
                 device.kind === 'audioinput' && device.deviceId !== '');
         } catch (e) {
             console.warn("No se pudo enumerar dispositivos:", e);
         }
 
-        if (isMobileApp && !hasMicroPermission) {
-            updateUserFeedback("Por favor, habilita los permisos del micrófono en la configuración de tu dispositivo.", true);
-            return false;
+        // 3. Si es móvil y no tiene permisos, manejar diferente
+        if (isMobileApp && !hasPermission) {
+            // Primero intentar obtener permisos del WebView
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                stream.getTracks().forEach(track => track.stop());
+                return true;
+            } catch (error) {
+                console.log("Error al solicitar permisos en móvil:", error);
+                updateUserFeedback("Por favor, habilita los permisos del micrófono en la configuración de tu navegador también.", true);
+                
+                // Mostrar botón para reintentar
+                showMobilePermissionHelp();
+                return false;
+            }
         }
 
+        // 4. Para navegadores normales
+        if (!hasPermission) {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            stream.getTracks().forEach(track => track.stop());
+        }
+
+        return true;
+    } catch (error) {
+        console.error("Error en checkMicrophonePermissions:", error);
+        handleAudioError(error);
+        return false;
+    }
+}
+
+// --- Mostrar ayuda para móviles ---
+function showMobilePermissionHelp() {
+    // Eliminar cualquier panel existente primero
+    $('.mobile-permission-help').remove();
+    
+    const helpPanel = `
+        <div class="mobile-permission-help" style="
+            position: fixed;
+            bottom: 20px;
+            left: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        ">
+            <h3 style="margin-top: 0;">Permisos requeridos</h3>
+            <p>Para que funcione el micrófono:</p>
+            <ol>
+                <li>Abre la configuración de tu navegador</li>
+                <li>Busca la sección de permisos</li>
+                <li>Habilita el acceso al micrófono</li>
+            </ol>
+            <button id="retry-mic-btn" style="
+                background: #4285f4;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                margin-top: 10px;
+                width: 100%;
+            ">Reintentar</button>
+        </div>
+    `;
+    
+    $('body').append(helpPanel);
+    
+    $('#retry-mic-btn').click(async function() {
+        $('.mobile-permission-help').remove();
+        await initializeMicrophone();
+    });
+}
+// --- Modifica tu initializeMicrophone ---
+async function initializeMicrophone() {
+    const hasPermissions = await checkMicrophonePermissions();
+    if (!hasPermissions) return false;
+
+    try {
         globalStream = await navigator.mediaDevices.getUserMedia({ 
             audio: {
                 echoCancellation: true,
@@ -167,19 +242,10 @@ async function initializeMicrophone() {
             };
         });
 
-        console.log("Micrófono inicializado correctamente");
         enableRecordingFeatures(true);
         return true;
-
     } catch (error) {
-        console.error("Error en initializeMicrophone:", error);
-        
-        if (isMobileApp && error.name === 'NotAllowedError') {
-            updateUserFeedback("Permiso denegado. Por favor, habilita el micrófono en los ajustes de la aplicación.", true);
-        } else {
-            handleAudioError(error);
-        }
-        
+        handleAudioError(error);
         return false;
     }
 }
